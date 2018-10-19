@@ -9,9 +9,9 @@ Rtm bot adding `!bang` shortcuts<sup id="a1">[1](#f1)</sup> wizardry to slack
 
 # Glossary
 
-bang: shortcut starting by `!` to execute arbitrary action to a slack channel/message
+_bang:_ shortcut starting by `!` to execute arbitrary action to a slack channel/message
 
-memoji: custom emoji refering to a meme eg `:feels_good_man:`, `:fry_not_sure:`, etc 
+_memoji:_ custom emoji refering to a meme eg `:feels_good_man:`, `:fry_not_sure:`, etc 
 
 # Usage
 
