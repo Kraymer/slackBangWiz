@@ -7,12 +7,18 @@ Rtm bot adding `!bang` shortcuts<sup id="a1">[1](#f1)</sup> wizardry to slack
 
 -- *Slightly modified* lyrics of [Comic Strip - Serge Gainsbourg ft Brigitte Bardot](https://www.youtube.com/watch?v=22Uf4-khGAk) 
 
+# Glossary
+
+bang: shortcut starting by `!` to execute arbitrary action to a slack channel/message
+
+memoji: custom emoji refering to a meme eg `:feels_good_man:`, `:fry_not_sure:`, etc 
+
 # Usage
 
-- `!b`, `!bomb`
-- `!c`, `!coin`
-- `!k`, `!kaomoji`
-- `!kym`
+- `!b[SECONDS]`, `!bomb` : autodestuct message after *SECONDS* (default: 10)
+- `!c`: flip a coin
+- `!k <EMOJI>`: replace *EMOJI* by its kawai version
+- `!kym <MEMOJI>`: print definition of *MEMOJI* 
 
 *TODO*
 
