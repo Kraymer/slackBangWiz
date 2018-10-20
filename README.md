@@ -5,7 +5,7 @@ Rtm bot adding `!bang` shortcuts<sup id="a1">[1](#f1)</sup> wizardry to slack
 > Des clip! Crap! Des BANG! Des vlop! Et des zip!   
 > Shebam! Pow! Blop! WIZ!  
 
--- *Slightly modified* lyrics of [Comic Strip - Serge Gainsbourg ft Brigitte Bardot](https://www.youtube.com/watch?v=22Uf4-khGAk) 
+-- *Slightly edited* lyrics of [Comic Strip - Serge Gainsbourg ft Brigitte Bardot](https://www.youtube.com/watch?v=22Uf4-khGAk) 
 
 # Glossary
 
