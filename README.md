@@ -1,5 +1,5 @@
 # slackBangWiz
-Rtm bot adding `!bang` shortcuts<sup id="a1">[1](#f1)</sup> wizardry to slack
+python-rtmbot plugin adding `!bang` shortcuts<sup id="a1">[1](#f1)</sup> wizardry to slack
 
 > Ca fait vlam! Ca fait SLACK!  
 > Des clip! Crap! Des BANG! Des vlop! Et des zip!   
@@ -24,7 +24,9 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 
 # Install
 
-*TODO*
+1. Install python-rtmbot using instructions at https://github.com/slackapi/python-rtmbot#installation
+2. `cd python-rtmbot/plugins`
+3. `git clone https://github.com/Kraymer/slackBangWiz.git`
 
 ---
 <i id="f1">1</i> *à la* DuckDuckGo, see https://duckduckgo.com/bang [⤸](#a1) 
