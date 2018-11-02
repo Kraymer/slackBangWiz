@@ -19,6 +19,10 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 
 ![Image](https://thumbs.gfycat.com/CavernousLikableFrigatebird-size_restricted.gif)
 
+- `!kym <MEMOJI>`: show *MEMOJI* description 
+
+![](https://i.imgur.com/Qs0BY1L.png)
+
 ## TODO
 
 - `!b[SECONDS]`, `!bomb` : autodestuct message after *SECONDS* (default: 10)
