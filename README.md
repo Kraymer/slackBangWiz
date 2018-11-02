@@ -15,12 +15,16 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 
 # Usage
 
+- `!k <EMOJI>`: replace *EMOJI* by its kawai version
+
+![Image](https://thumbs.gfycat.com/CavernousLikableFrigatebird-size_restricted.gif)
+
+## TODO
+
 - `!b[SECONDS]`, `!bomb` : autodestuct message after *SECONDS* (default: 10)
 - `!c`: flip a coin
-- `!k <EMOJI>`: replace *EMOJI* by its kawai version
 - `!kym <MEMOJI>`: print definition of *MEMOJI* 
 
-*TODO*
 
 # Install
 
