@@ -42,6 +42,6 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
    [...]
    ACTIVE_PLUGINS:
     - plugins.bang.BangPlugin
-   ~~~
+   ~~~~
    
 <i id="f1">1</i> *à la* DuckDuckGo, see https://duckduckgo.com/bang [⤸](#a1) 
