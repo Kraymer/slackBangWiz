@@ -4,7 +4,6 @@ from rtmbot.core import Plugin
 
 from memedict import search
 
-from utils import delete_line
 from auth import (USERS_TOKENS, BOT_TOKEN)
 
 

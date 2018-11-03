@@ -41,7 +41,7 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
    $ more rtmbot.conf
    [...]
    ACTIVE_PLUGINS:
-    - plugins.bang.BangPlugin
+    - plugins.bangwiz.BangPlugin
    ~~~~
    
 <i id="f1">1</i> *à la* DuckDuckGo, see https://duckduckgo.com/bang [⤸](#a1) 
