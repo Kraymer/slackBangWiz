@@ -59,7 +59,7 @@ class BangPlugin(Plugin):
     def _kaomoji(self, data):
         """!k: replace emoji with kaomoji.
         """
-        from rsrc.kaomoji import KAOMOJIS
+        from bang.rsrc.kaomoji import KAOMOJIS
 
         if data['text'] in KAOMOJIS:
             delete_line(data)
