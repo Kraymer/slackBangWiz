@@ -35,14 +35,18 @@ class BangPlugin(Plugin):
             token=BOT_TOKEN, as_user=False, name=emoji, icon_emoji=':slack-cli:',
             channel=data['channel'], timestamp=data['ts'])
 
+
     # Commands below
 
     def _help(self, data):
         """Show this help message.
         """
         commands = [x for x in dir(self) if x.startswith('_') and not x.startswith('__')]
-        for cmd in sorted(commands):
-            print(cmd.__doc__)
+        usage = '\n'.join([cmd.__doc__ for cmd in sorted(commands)])
+        self.slack_client.api_call("chat.postMessage", icon_emoji=':bangbang:',
+            token=BOT_TOKEN, as_user=False,
+            text=usage,
+            channel=data['user'])
 
     def _bomb(self, data):
         """!b: destruct message after 10 seconds.
@@ -63,7 +67,7 @@ class BangPlugin(Plugin):
         from bang.rsrc.kaomoji import KAOMOJIS
 
         if data['text'] in KAOMOJIS:
-            delete_line(data)
+            self.delete_line(data)
             self.slack_client.api_call("chat.postMessage",
                 token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
                 as_user=True, text=KAOMOJIS[data['text']], channel=data['channel'])
