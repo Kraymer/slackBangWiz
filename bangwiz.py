@@ -4,7 +4,7 @@ from rtmbot.core import Plugin
 
 from memedict import search
 
-from auth import (USERS_TOKENS, BOT_TOKEN)
+from bang.auth import (USERS_TOKENS, BOT_TOKEN)
 
 
 class BangPlugin(Plugin):
