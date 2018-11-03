@@ -21,6 +21,8 @@ class BangPlugin(Plugin):
             self._kaomoji(data)
         elif command == '!kym':
             self._kym(data)
+        elif command == 'h':
+            self._help(data)
 
     def delete_line(self, data):
         # Delete command
