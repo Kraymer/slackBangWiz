@@ -36,11 +36,12 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 2. `cd python-rtmbot/plugins`
 3. `git clone https://github.com/Kraymer/slackBangWiz.git`
 4. declare the plugin : 
+
    ~~~~
    $ more rtmbot.conf
    [...]
    ACTIVE_PLUGINS:
     - plugins.bang.BangPlugin
-   ---
+   ~~~
    
 <i id="f1">1</i> *à la* DuckDuckGo, see https://duckduckgo.com/bang [⤸](#a1) 
