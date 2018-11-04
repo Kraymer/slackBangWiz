@@ -57,11 +57,12 @@ class BangPlugin(Plugin):
         """!b: destruct message after 10 seconds.
         """
         self.delete_line(data)
-        self.slack_client.api_call("chat.postMessage",
+        data = self.slack_client.api_call("chat.postMessage",
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
             as_user=True, text=':bomb: %s' % data['text'], channel=data['channel'])
+        data.update(data['message'])
         time.sleep(7)
-        res = self.react(data, 'three')
+        self.react(data, 'three')
         time.sleep(1)
         self.react(data, 'two')
         time.sleep(1)
