@@ -55,13 +55,13 @@ class BangPlugin(Plugin):
         """!b: destruct message after 10 seconds.
         """
         time.sleep(7)
-        self.react('three')
+        self.react(data, ':three:')
         time.sleep(1)
-        self.react('two')
+        self.react(data, ':two:')
         time.sleep(1)
-        self.react('one')
+        self.react(data, ':one:')
         time.sleep(1)
-        self.react('fire')
+        self.react(data, ':fire:')
         self.delete_line(data)
 
     def _kaomoji(self, data):
