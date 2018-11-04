@@ -35,7 +35,7 @@ class BangPlugin(Plugin):
             channel=data['channel'], ts=data['ts'], as_user=True)
 
     def react(self, data, emoji):
-        self.slack_client.api_call("reactions.add",
+        return self.slack_client.api_call("reactions.add",
             token=BOT_TOKEN, as_user=False, name=emoji, icon_emoji=':slack-cli:',
             channel=data['channel'], timestamp=data['ts'])
 
@@ -57,13 +57,13 @@ class BangPlugin(Plugin):
         """!b: destruct message after 10 seconds.
         """
         time.sleep(7)
-        self.react(data, ':three:')
+        res = self.react(data, 'three')
         time.sleep(1)
-        self.react(data, ':two:')
+        self.react(data, 'two')
         time.sleep(1)
-        self.react(data, ':one:')
+        self.react(data, 'one')
         time.sleep(1)
-        self.react(data, ':fire:')
+        self.react(data, 'fire')
         self.delete_line(data)
 
     def _kaomoji(self, data):
