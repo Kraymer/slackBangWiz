@@ -6,25 +6,27 @@ from memedict import search
 
 from bang.auth import (USERS_TOKENS, BOT_TOKEN)
 
+logging.basicConfig(filename='rtmbotf.log',
+                    format='%(asctime)s %(message)s')
+
 
 class BangPlugin(Plugin):
     """Bang !shortcuts for slack.
     """
 
     def process_message(self, data):
-        logging.basicConfig(filename='rtmbotf.log',
-                            format='%(asctime)s %(message)s')
-        tokens = data['text'].split(' ')
-        command = tokens[0]
-        data['text'] = ' '.join(tokens[1:])
-        if command == '!b':
-            self._bomb(data)
-        if command == '!k':
-            self._kaomoji(data)
-        elif command == '!kym':
-            self._kym(data)
-        elif command == '!h':
-            self._help(data)
+        if 'text' in data:
+            tokens = data['text'].split(' ')
+            command = tokens[0]
+            data['text'] = ' '.join(tokens[1:])
+            if command == '!b':
+                self._bomb(data)
+            if command == '!k':
+                self._kaomoji(data)
+            elif command == '!kym':
+                self._kym(data)
+            elif command == '!h':
+                self._help(data)
 
     def delete_line(self, data):
         # Delete command
