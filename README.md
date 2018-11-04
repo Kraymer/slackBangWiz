@@ -15,6 +15,10 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 
 # Usage
 
+- `!b <text>`: destruct the message after 10 seconds elapsed
+
+![Image](https://thumbs.gfycat.com/SecondaryEasygoingClam-size_restricted.gif)
+
 - `!k <EMOJI>`: replace *EMOJI* by its kawai version
 
 ![Image](https://thumbs.gfycat.com/CavernousLikableFrigatebird-size_restricted.gif)
@@ -33,9 +37,8 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 # Install
 
 1. Install python-rtmbot using instructions at https://github.com/slackapi/python-rtmbot#installation
-2. `cd python-rtmbot/plugins`
-3. `git clone https://github.com/Kraymer/slackBangWiz.git`
-4. declare the plugin : 
+2. `cd python-rtmbot/plugins ; git clone https://github.com/Kraymer/slackBangWiz.git`
+3. declare the plugin : 
 
    ~~~~
    $ more rtmbot.conf
@@ -43,5 +46,7 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
    ACTIVE_PLUGINS:
     - plugins.bangwiz.BangPlugin
    ~~~~
-   
+ 
+ 4. enter slack users tokens in `bang/auth.py`
+ 
 <i id="f1">1</i> *à la* DuckDuckGo, see https://duckduckgo.com/bang [⤸](#a1) 
