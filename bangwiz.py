@@ -17,6 +17,8 @@ class BangPlugin(Plugin):
         tokens = data['text'].split(' ')
         command = tokens[0]
         data['text'] = ' '.join(tokens[1:])
+        if command == '!b':
+            self._bomb(data)
         if command == '!k':
             self._kaomoji(data)
         elif command == '!kym':
