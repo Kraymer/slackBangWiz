@@ -39,12 +39,13 @@ class BangPlugin(Plugin):
     # Commands below
 
     def _help(self, data):
-        """Show this help message.
+        """!h: show this help message.
         """
         commands = [x for x in dir(self) if x.startswith('_') and not x.startswith('__')]
-        usage = '\n'.join([cmd.__doc__ for cmd in sorted(commands)])
+        usage = ''.join([getattr(self, cmd).__doc__ for cmd in sorted(commands)])
         self.slack_client.api_call("chat.postMessage", icon_emoji=':bangbang:',
             token=BOT_TOKEN, as_user=False,
+            username='Bang',
             text=usage,
             channel=data['user'])
 
