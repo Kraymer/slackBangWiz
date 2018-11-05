@@ -49,4 +49,6 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
  
  4. enter slack users tokens in `bang/auth.py`
  
+ 
+ ---
 <i id="f1">1</i> *à la* DuckDuckGo, see https://duckduckgo.com/bang [⤸](#a1) 
