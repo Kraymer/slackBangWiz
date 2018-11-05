@@ -16,9 +16,7 @@ class BangPlugin(Plugin):
 
     def process_message(self, data):
         if 'text' in data:
-            tokens = data['text'].split(' ')
-            command = tokens[0]
-            data['text'] = ' '.join(tokens[1:])
+            command = data['text'].split(' ')[0]
             if command == '!b':
                 self._bomb(data)
             if command == '!k':
@@ -27,11 +25,15 @@ class BangPlugin(Plugin):
                 self._kym(data)
             elif command == '!h':
                 self._help(data)
+            elif command == '!p':
+                self._poll(data)
+
+    def strip_command(self, data):
+        return ' '.join(data['text'].split(' ')[1:])
 
     def delete_line(self, data):
         # Delete command
         self.slack_client.api_call("chat.delete",
-            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
             channel=data['channel'], ts=data['ts'], as_user=True)
 
     def react(self, data, emoji):
@@ -61,7 +63,7 @@ class BangPlugin(Plugin):
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
             as_user=True, text=':bomb: %s' % data['text'], channel=data['channel'])
         data.update(data['message'])
-        time.sleep(7)
+        time.sleep(17)
         self.react(data, 'three')
         time.sleep(1)
         self.react(data, 'two')
@@ -75,17 +77,17 @@ class BangPlugin(Plugin):
         """!k: replace emoji with kaomoji.
         """
         from bang.rsrc.kaomoji import KAOMOJIS
-
-        if data['text'] in KAOMOJIS:
+        text = self.strip_command(data)[1:-1]
+        if text in KAOMOJIS:
             self.delete_line(data)
             self.slack_client.api_call("chat.postMessage",
                 token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-                as_user=True, text=KAOMOJIS[data['text']], channel=data['channel'])
+                as_user=True, text=KAOMOJIS[text], channel=data['channel'])
 
     def _kym(self, data):
         """!kym: print description of given emoji.
         """
-        emoji = data['text'].split(':')[1]
+        emoji = self.split_command(data)
         term = ' '.join(emoji.split('_'))
         description = search(term)
         self.slack_client.api_call("chat.postMessage", icon_emoji=':%s:' % emoji,
@@ -93,3 +95,9 @@ class BangPlugin(Plugin):
             username=description.split('.')[0],
             text='.'.join(description.split('.')[1:]),
             channel=data['user'])
+
+    def _poll(self, data):
+        """!p: post an emopoll as bot user hence enabling original poster to vote
+        """
+        text = self.strip_command(data)
+        pass
