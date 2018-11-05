@@ -9,6 +9,8 @@ from bang.auth import (USERS_TOKENS, BOT_TOKEN)
 logging.basicConfig(filename='rtmbotf.log',
                     format='%(asctime)s %(message)s')
 
+POLL_RE = r"(.*?)((:\w+:\s?)+)"
+
 
 class BangPlugin(Plugin):
     """Bang !shortcuts for slack.
@@ -34,13 +36,13 @@ class BangPlugin(Plugin):
     def delete_line(self, data):
         # Delete command
         self.slack_client.api_call("chat.delete",
+            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
             channel=data['channel'], ts=data['ts'], as_user=True)
 
     def react(self, data, emoji):
         return self.slack_client.api_call("reactions.add",
             token=BOT_TOKEN, as_user=False, name=emoji, icon_emoji=':slack-cli:',
             channel=data['channel'], timestamp=data['ts'])
-
 
     # Commands below
 
@@ -58,10 +60,11 @@ class BangPlugin(Plugin):
     def _bomb(self, data):
         """!b: destruct message after 10 seconds.
         """
+        text = self.strip_command(data)
         self.delete_line(data)
         data = self.slack_client.api_call("chat.postMessage",
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-            as_user=True, text=':bomb: %s' % data['text'], channel=data['channel'])
+            as_user=True, text=':bomb: %s' % text, channel=data['channel'])
         data.update(data['message'])
         time.sleep(17)
         self.react(data, 'three')
