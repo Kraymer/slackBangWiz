@@ -1,10 +1,10 @@
 import logging
-import time
 from rtmbot.core import Plugin
 
 from memedict import search
 
 from bang.auth import (USERS_TOKENS, BOT_TOKEN)
+from bang.bomb import BombCountdown
 
 logging.basicConfig(filename='rtmbotf.log',
                     format='%(asctime)s %(message)s')
@@ -66,15 +66,7 @@ class BangPlugin(Plugin):
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
             as_user=True, text=':bomb: %s' % text, channel=data['channel'])
         data.update(data['message'])
-        time.sleep(17)
-        self.react(data, 'three')
-        time.sleep(1)
-        self.react(data, 'two')
-        time.sleep(1)
-        self.react(data, 'one')
-        time.sleep(1)
-        self.react(data, 'fire')
-        self.delete_line(data)
+        BombCountdown(data).start()
 
     def _kaomoji(self, data):
         """!k: replace emoji with kaomoji.
