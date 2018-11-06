@@ -6,12 +6,14 @@ from memedict import search
 
 from bang.auth import (USERS_TOKENS, BOT_TOKEN)
 from bang.bomb import BombCountdown
+from bang.slacker import (delete_line, react)
 
 logging.basicConfig(filename='rtmbotf.log',
                     format='%(asctime)s %(message)s')
 
 MEME_RE = re.compile(r'\".*?\"')
 POLL_RE = re.compile(r"(.*?)((:\w+:\s?)+)")
+
 
 
 class BangPlugin(Plugin):
@@ -37,16 +39,6 @@ class BangPlugin(Plugin):
     def strip_command(self, data):
         return ' '.join(data['text'].split(' ')[1:])
 
-    def delete_line(self, data):
-        # Delete command
-        self.slack_client.api_call("chat.delete",
-            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-            channel=data['channel'], ts=data['ts'], as_user=True)
-
-    def react(self, data, emoji):
-        return self.slack_client.api_call("reactions.add",
-            token=BOT_TOKEN, as_user=False, name=emoji, icon_emoji=':slack-cli:',
-            channel=data['channel'], timestamp=data['ts'])
 
     # Commands below
 
@@ -65,7 +57,7 @@ class BangPlugin(Plugin):
         """`!b <text>`\tdestruct message after 20 seconds.
         """
         text = self.strip_command(data)
-        self.delete_line(data)
+        delete_line(data)
         data = self.slack_client.api_call("chat.postMessage",
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
             as_user=True, text=':bomb: %s' % text, channel=data['channel'])
@@ -78,7 +70,7 @@ class BangPlugin(Plugin):
         from bang.rsrc.kaomoji import KAOMOJIS
         text = self.strip_command(data)[1:-1]
         if text in KAOMOJIS:
-            self.delete_line(data)
+            delete_line(data)
             self.slack_client.api_call("chat.postMessage",
                 token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
                 as_user=True, text=KAOMOJIS[text], channel=data['channel'])
@@ -98,6 +90,7 @@ class BangPlugin(Plugin):
     def _memegen(self, data):
         """`!m <meme_name or memoji> "<top text>" "<bottom text>"`\tgenerate a meme image
         """
+        delete_line(data)
         meme_name = self.strip_command(data).split(' ')[0]
         if meme_name.startswith(':'):
             meme_name = meme_name[1:-1]
@@ -106,7 +99,7 @@ class BangPlugin(Plugin):
         url = 'https://memegen.link/%s/%s/%s.jpg' % (meme_name, texts[0], texts[1])
         self.slack_client.api_call("chat.postMessage",
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-            as_user=True, text=url, channel=data['channel'])
+            as_user=True, text=':troll: %s' % url, channel=data['channel'])
 
     def _poll(self, data):
         """`!p <question> <emojis>`\tpost an emopoll as bot user hence enabling original poster to vote.
@@ -116,7 +109,6 @@ class BangPlugin(Plugin):
         question = match.group(1)
         emojis = [x for x in match.group(2).split(':') if x]
         if question and len(emojis) > 1:
-            self.delete_line(data)
             data = self.slack_client.api_call("chat.postMessage",
                 token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
                 as_user=True, text=':question: %s' % question, channel=data['channel'])
