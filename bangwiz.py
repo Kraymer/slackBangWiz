@@ -103,7 +103,7 @@ class BangPlugin(Plugin):
             self.delete_line(data)
             data = self.slack_client.api_call("chat.postMessage",
                 token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-                as_user=True, text=question, channel=data['channel'])
+                as_user=True, text=':question: %s' % question, channel=data['channel'])
             data.update(data['message'])
             for emoji in emojis:
-                self.react(self.data, emoji)
+                self.react(data, emoji)
