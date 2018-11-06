@@ -28,6 +28,8 @@ class BangPlugin(Plugin):
                 self._kym(data)
             elif command == '!h':
                 self._help(data)
+            elif command == '!m':
+                self._memegen(data)
             elif command == '!p':
                 self._poll(data)
 
@@ -91,6 +93,16 @@ class BangPlugin(Plugin):
             username=description.split('.')[0],
             text='.'.join(description.split('.')[1:]),
             channel=data['user'])
+
+    def _memegen(self, data):
+        """`!m <meme_name or memoji> "<top text>" "<bottom text>"`\tgenerate a meme image
+        """
+        meme_name = data.split(' ')[0]
+        texts = [x for x in data.split(' ')[1:].split('"') if x]
+        url = 'https://memegen.link/%s/%s/%s.jpg' % (meme_name, texts[0], texts[1])
+        self.slack_client.api_call("chat.postMessage",
+            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
+            as_user=True, text=url, channel=data['channel'])
 
     def _poll(self, data):
         """`!p <question> <emojis>`\tpost an emopoll as bot user hence enabling original poster to vote.
