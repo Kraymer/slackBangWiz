@@ -51,7 +51,7 @@ class BangPlugin(Plugin):
         """!h: show this help message.
         """
         commands = [x for x in dir(self) if x.startswith('_') and not x.startswith('__')]
-        usage = ''.join([getattr(self, cmd).__doc__.strip() for cmd in sorted(commands)])
+        usage = '\n'.join([getattr(self, cmd).__doc__.strip() for cmd in sorted(commands)])
         self.slack_client.api_call("chat.postMessage", icon_emoji=':bangbang:',
             token=BOT_TOKEN, as_user=False,
             username='Bang',
@@ -101,8 +101,9 @@ class BangPlugin(Plugin):
         emojis = [x for x in match.group(2).split(':') if x]
         if question and len(emojis) > 1:
             self.delete_line(data)
-            self.slack_client.api_call("chat.postMessage",
+            data = self.slack_client.api_call("chat.postMessage",
                 token=BOT_TOKEN,
                 as_user=False, text=question, channel=data['channel'])
+            data.update(data['message'])
             for emoji in emojis:
                 self.react(self.data, emoji)
