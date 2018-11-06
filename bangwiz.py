@@ -107,4 +107,4 @@ class BangPlugin(Plugin):
             data.update(data['message'])
             for emoji in emojis:
                 self.react(data, emoji)
-            self.react(data, ':end:')
+            self.react(data, 'end')
