@@ -66,7 +66,7 @@ class BangPlugin(Plugin):
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
             as_user=True, text=':bomb: %s' % text, channel=data['channel'])
         data.update(data['message'])
-        BombCountdown(data).start()
+        BombCountdown(self.slack_client, data).start()
 
     def _kaomoji(self, data):
         """!k: replace emoji with kaomoji.
