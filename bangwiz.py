@@ -48,7 +48,7 @@ class BangPlugin(Plugin):
     # Commands below
 
     def _help(self, data):
-        """!h: show this help message.
+        """`!h`\tshow this help message.
         """
         commands = [x for x in dir(self) if x.startswith('_') and not x.startswith('__')]
         usage = '\n'.join([getattr(self, cmd).__doc__.strip() for cmd in sorted(commands)])
@@ -59,7 +59,7 @@ class BangPlugin(Plugin):
             channel=data['user'])
 
     def _bomb(self, data):
-        """!b: destruct message after 10 seconds.
+        """`!b <text>`\tdestruct message after 10 seconds.
         """
         text = self.strip_command(data)
         self.delete_line(data)
@@ -70,7 +70,7 @@ class BangPlugin(Plugin):
         BombCountdown(self.slack_client, data).start()
 
     def _kaomoji(self, data):
-        """!k: replace emoji with kaomoji.
+        """`!k <emoji>`\treplace emoji with kaomoji.
         """
         from bang.rsrc.kaomoji import KAOMOJIS
         text = self.strip_command(data)[1:-1]
@@ -81,7 +81,7 @@ class BangPlugin(Plugin):
                 as_user=True, text=KAOMOJIS[text], channel=data['channel'])
 
     def _kym(self, data):
-        """!kym: print description of given emoji.
+        """`!kym <memoji>`\tprint description of given emoji.
         """
         emoji = self.split_command(data)
         term = ' '.join(emoji.split('_'))
@@ -93,7 +93,8 @@ class BangPlugin(Plugin):
             channel=data['user'])
 
     def _poll(self, data):
-        """!p: post an emopoll as bot user hence enabling original poster to vote
+        """`!p <question> <emojis>`\tpost an emopoll as bot user hence enabling original poster to
+        vote.
         """
         text = self.strip_command(data)
         match = re.match(POLL_RE, text)
