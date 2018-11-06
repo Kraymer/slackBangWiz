@@ -10,6 +10,7 @@ from bang.bomb import BombCountdown
 logging.basicConfig(filename='rtmbotf.log',
                     format='%(asctime)s %(message)s')
 
+MEME_RE = re.compile(r'\".*?\"')
 POLL_RE = re.compile(r"(.*?)((:\w+:\s?)+)")
 
 
@@ -97,8 +98,11 @@ class BangPlugin(Plugin):
     def _memegen(self, data):
         """`!m <meme_name or memoji> "<top text>" "<bottom text>"`\tgenerate a meme image
         """
-        meme_name = data.split(' ')[0]
-        texts = [x for x in data.split(' ')[1:].split('"') if x]
+        meme_name = self.strip_command(data).split(' ')[0]
+        if meme_name.startswith(':'):
+            meme_name = meme_name[1:-1]
+        texts = re.findall(MEME_RE, data['text'])
+        texts = [x[1:-1].replace(' ', '_') for x in texts]
         url = 'https://memegen.link/%s/%s/%s.jpg' % (meme_name, texts[0], texts[1])
         self.slack_client.api_call("chat.postMessage",
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
