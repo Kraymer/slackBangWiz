@@ -50,7 +50,7 @@ class BangPlugin(Plugin):
         """!h: show this help message.
         """
         commands = [x for x in dir(self) if x.startswith('_') and not x.startswith('__')]
-        usage = ''.join([getattr(self, cmd).__doc__ for cmd in sorted(commands)])
+        usage = ''.join([getattr(self, cmd).__doc__.strip() for cmd in sorted(commands)])
         self.slack_client.api_call("chat.postMessage", icon_emoji=':bangbang:',
             token=BOT_TOKEN, as_user=False,
             username='Bang',
