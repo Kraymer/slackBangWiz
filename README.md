@@ -27,11 +27,9 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 
 ![](https://i.imgur.com/Qs0BY1L.png)
 
-## TODO
+- `!m <MEMENAME> <TOP TEXT> <BOTTOM TEXT>`: generate meme image
 
-- `!b[SECONDS]`, `!bomb` : autodestuct message after *SECONDS* (default: 10)
-- `!c`: flip a coin
-- `!kym <MEMOJI>`: print definition of *MEMOJI* 
+![](https://raw.githubusercontent.com/Kraymer/bulkdata/master/ezgif-5-3974dd57a36e.gif)
 
 
 # Install
