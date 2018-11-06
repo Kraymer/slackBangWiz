@@ -1,4 +1,5 @@
 import logging
+import re
 from rtmbot.core import Plugin
 
 from memedict import search
@@ -9,7 +10,7 @@ from bang.bomb import BombCountdown
 logging.basicConfig(filename='rtmbotf.log',
                     format='%(asctime)s %(message)s')
 
-POLL_RE = r"(.*?)((:\w+:\s?)+)"
+POLL_RE = re.compile(r"(.*?)((:\w+:\s?)+)")
 
 
 class BangPlugin(Plugin):
@@ -95,4 +96,13 @@ class BangPlugin(Plugin):
         """!p: post an emopoll as bot user hence enabling original poster to vote
         """
         text = self.strip_command(data)
-        pass
+        match = re.match(POLL_RE, text)
+        question = match.group(1)
+        emojis = [x for x in match.group(2).split(':') if x]
+        if question and len(emojis) > 1:
+            self.delete_line(data)
+            self.slack_client.api_call("chat.postMessage",
+                token=BOT_TOKEN,
+                as_user=False, text=question, channel=data['channel'])
+            for emoji in emojis:
+                self.react(self.data, emoji)
