@@ -59,7 +59,7 @@ class BangPlugin(Plugin):
             channel=data['user'])
 
     def _bomb(self, data):
-        """`!b <text>`\tdestruct message after 10 seconds.
+        """`!b <text>`\tdestruct message after 20 seconds.
         """
         text = self.strip_command(data)
         self.delete_line(data)
@@ -93,8 +93,7 @@ class BangPlugin(Plugin):
             channel=data['user'])
 
     def _poll(self, data):
-        """`!p <question> <emojis>`\tpost an emopoll as bot user hence enabling original poster to
-        vote.
+        """`!p <question> <emojis>`\tpost an emopoll as bot user hence enabling original poster to vote.
         """
         text = self.strip_command(data)
         match = re.match(POLL_RE, text)
@@ -108,3 +107,4 @@ class BangPlugin(Plugin):
             data.update(data['message'])
             for emoji in emojis:
                 self.react(data, emoji)
+            self.react(data, ':end:')
