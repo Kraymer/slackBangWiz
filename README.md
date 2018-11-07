@@ -15,26 +15,28 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 
 # Usage
 
-- **B**ombify.   
+- **B**omb   
   `!b <text>`: destruct the message after 10 seconds elapsed
 
   <img src=https://raw.githubusercontent.com/Kraymer/bulkdata/master/emobomb.gif width=600>
 
-- **D**efine.  
+- **D**efine  
   `!kym <MEMOJI>`: show *MEMOJI* description 
 
   <img src=https://i.imgur.com/Qs0BY1L.png width=600>
   
-- **K**aomojify.  
+- **K**aomoji  
   `!k <EMOJI>`: replace *EMOJI* by its kawai version
 
   <img src=https://thumbs.gfycat.com/CavernousLikableFrigatebird-size_restricted.gif width=600>
 
-- **M**emeify.  
+- **M**eme    
   `!m <MEMENAME> <TOP TEXT> <BOTTOM TEXT>`: generate meme image
 
   <img src=https://raw.githubusercontent.com/Kraymer/bulkdata/master/ezgif-5-3974dd57a36e.gif width=600>
 
+- **P**oll
+  `!p <QUESTION> <EMOJIS>`: post an emopoll 
 
 # Install
 
