@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 INSULTS = (
     "A most notable coward, an infinite and endless liar, an hourly promise breaker, the owner of no one good quality.",
     "Away, you starvelling, you elf-skin, you dried neat’s-tongue, bull’s-pizzle, you stock-fish!",

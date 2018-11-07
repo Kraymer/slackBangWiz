@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from auth import (USERS_TOKENS, BOT_TOKEN)
 
 
