@@ -35,7 +35,7 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 
   <img src=https://raw.githubusercontent.com/Kraymer/bulkdata/master/ezgif-5-3974dd57a36e.gif width=600>
 
-- **P**oll
+- **P**oll  
   `!p <QUESTION> <EMOJIS>`: post an emopoll 
 
 # Install
