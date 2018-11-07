@@ -17,7 +17,7 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 
 - `!b <text>`: destruct the message after 10 seconds elapsed
 
-  <img src=https://thumbs.gfycat.com/SecondaryEasygoingClam-size_restricted.gif width=600>
+  <img src=https://raw.githubusercontent.com/Kraymer/bulkdata/master/emobomb.gif width=600>
 
 - `!k <EMOJI>`: replace *EMOJI* by its kawai version
 
