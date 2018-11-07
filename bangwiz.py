@@ -97,7 +97,8 @@ class BangPlugin(Plugin):
         text = self.strip_command(data)
         self.slack_client.api_call("chat.postMessage",
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-            as_user=True, text='%s %s' % (text, random.choice(INSULTS)),
+            as_user=True, text=':shakespeare: %s _%s_' % (
+                text, random.choice(INSULTS)),
             channel=data['channel'])
 
     def _memegen(self, data):
@@ -127,4 +128,4 @@ class BangPlugin(Plugin):
             data.update(data['message'])
             for emoji in emojis:
                 react(self.slack_client, data, emoji)
-            react(self.Slack_client, data, 'end')
+            react(self.slack_client, data, 'void')
