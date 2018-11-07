@@ -1,4 +1,5 @@
 import logging
+import random
 import re
 from rtmbot.core import Plugin
 
@@ -22,23 +23,49 @@ class BangPlugin(Plugin):
     def process_message(self, data):
         if 'text' in data:
             command = data['text'].split(' ')[0]
-            if command == '!b':
-                self._bomb(data)
-            if command == '!k':
-                self._kaomoji(data)
-            elif command == '!kym':
-                self._kym(data)
-            elif command == '!h':
-                self._help(data)
-            elif command == '!m':
-                self._memegen(data)
-            elif command == '!p':
-                self._poll(data)
+            if command[0] == '!' and len(command) == 2:
+                delete_line(self.slack_client, data)
+                if command == '!b':
+                    self._bomb(data)
+                elif command == '!d':
+                    self._describe(data)
+                elif command == '!h':
+                    self._help(data)
+                elif command == '!i':
+                    self._insult(data)
+                elif command == '!k':
+                    self._kaomoji(data)
+                elif command == '!m':
+                    self._memegen(data)
+                elif command == '!p':
+                    self._poll(data)
 
     def strip_command(self, data):
         return ' '.join(data['text'].split(' ')[1:])
 
     # Commands below
+
+    def _bomb(self, data):
+        """`!b <text>`\tdestruct message after 20 seconds.
+        """
+        text = self.strip_command(data)
+        data = self.slack_client.api_call("chat.postMessage",
+            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
+            as_user=True, text=':bomb: %s' % text, channel=data['channel'])
+        data.update(data['message'])
+        BombCountdown(self.slack_client, data).start()
+
+    def _describe(self, data):
+        """`!d <memoji>`\tprint description of given emoji.
+        """
+        emoji = self.split_command(data)
+        term = ' '.join(emoji.split('_'))
+        description = search(term)
+        self.slack_client.api_call("chat.postMessage", icon_emoji=':%s:' % emoji,
+            token=BOT_TOKEN, as_user=False,
+            username=description.split('.')[0],
+            text='.'.join(description.split('.')[1:]),
+            channel=data['user'])
 
     def _help(self, data):
         """`!h`\tshow this help message.
@@ -51,44 +78,29 @@ class BangPlugin(Plugin):
             text=usage,
             channel=data['user'])
 
-    def _bomb(self, data):
-        """`!b <text>`\tdestruct message after 20 seconds.
-        """
-        text = self.strip_command(data)
-        delete_line(self.slack_client, data)
-        data = self.slack_client.api_call("chat.postMessage",
-            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-            as_user=True, text=':bomb: %s' % text, channel=data['channel'])
-        data.update(data['message'])
-        BombCountdown(self.slack_client, data).start()
-
     def _kaomoji(self, data):
         """`!k <emoji>`\treplace emoji with kaomoji.
         """
         from bang.rsrc.kaomoji import KAOMOJIS
         text = self.strip_command(data)[1:-1]
         if text in KAOMOJIS:
-            delete_line(self.slack_client, data)
             self.slack_client.api_call("chat.postMessage",
                 token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
                 as_user=True, text=KAOMOJIS[text], channel=data['channel'])
 
-    def _kym(self, data):
-        """`!kym <memoji>`\tprint description of given emoji.
+    def _insult(self, data):
+        """`!i <@USER>`\tthrow a bunch of shakespearian poisonous words at your opponent face
         """
-        emoji = self.split_command(data)
-        term = ' '.join(emoji.split('_'))
-        description = search(term)
-        self.slack_client.api_call("chat.postMessage", icon_emoji=':%s:' % emoji,
-            token=BOT_TOKEN, as_user=False,
-            username=description.split('.')[0],
-            text='.'.join(description.split('.')[1:]),
-            channel=data['user'])
+        from bang.rsrc.insult import INSULTS
+        text = self.strip_command(data)
+        self.slack_client.api_call("chat.postMessage",
+            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
+            as_user=True, text='%s %s' % (text, random.choice(INSULTS)),
+            channel=data['channel'])
 
     def _memegen(self, data):
         """`!m <meme_name or memoji> "<top text>" "<bottom text>"`\tgenerate a meme image
         """
-        delete_line(self.slack_client, data)
         meme_name = self.strip_command(data).split(' ')[0]
         if meme_name.startswith(':'):
             meme_name = meme_name[1:-1]
