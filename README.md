@@ -16,7 +16,7 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 # Usage
 
 - **B**omb   
-  `!b <text>`: destruct the message after 10 seconds elapsed
+  `!b <text>`: destruct the message after 1 minute elapsed
 
   <img src=https://raw.githubusercontent.com/Kraymer/bulkdata/master/emobomb.gif width=600>
 
@@ -30,6 +30,9 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 
   <img src=https://thumbs.gfycat.com/CavernousLikableFrigatebird-size_restricted.gif width=600>
 
+- **I**nsult
+  `!i <@USER>: throw a bunch of shakespearian poisonous words at your opponent face
+  
 - **M**eme    
   `!m <MEMENAME> <TOP TEXT> <BOTTOM TEXT>`: generate meme image
 
