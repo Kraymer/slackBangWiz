@@ -24,7 +24,7 @@ class BangPlugin(Plugin):
 
     def __init__(self, name=None, slack_client=None, plugin_config=None):
         super(BangPlugin, self).__init__(name, slack_client, plugin_config)
-        init_client()
+        init_client(self.slack_client)
 
     def process_message(self, data):
         if 'text' in data:
