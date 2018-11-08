@@ -18,7 +18,7 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
 - **B**omb   
   `!b <text>`: destruct the message after 1 minute elapsed
 
-  <img src=https://raw.githubusercontent.com/Kraymer/bulkdata/master/emobomb.gif width=600>
+  ![](https://raw.githubusercontent.com/Kraymer/bulkdata/master/emobomb.gif)
 
 - **D**efine  
   `!kym <MEMOJI>`: show *MEMOJI* description 
