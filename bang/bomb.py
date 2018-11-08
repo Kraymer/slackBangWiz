@@ -13,7 +13,7 @@ class BombCountdown(Thread):
         self.data = data
 
     def run(self):
-        time.sleep(17)
+        time.sleep(57)
         react(self.slack_client, self.data, 'three')
         time.sleep(1)
         react(self.slack_client, self.data, 'two')

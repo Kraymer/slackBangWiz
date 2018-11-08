@@ -9,7 +9,7 @@ from memedict import search
 
 from bang.auth import (USERS_TOKENS, BOT_TOKEN)
 from bang.bomb import BombCountdown
-from bang.slacker import (delete_line, react)
+from bang.slacker import (delete_line, react, init_client)
 
 logging.basicConfig(filename='rtmbotf.log',
                     format='%(asctime)s %(message)s')
@@ -21,6 +21,10 @@ POLL_RE = re.compile(r"(.*?)((:\w+:\s?)+)")
 class BangPlugin(Plugin):
     """Bang !shortcuts for slack.
     """
+
+    def __init__(self, name=None, slack_client=None, plugin_config=None):
+        super().__init__(name, slack_client, plugin_config)
+        init_client()
 
     def process_message(self, data):
         if 'text' in data:
@@ -48,7 +52,7 @@ class BangPlugin(Plugin):
     # Commands below
 
     def _bomb(self, data):
-        """`!b <text>`\tdestruct message after 20 seconds.
+        """`!b <text>`\tdestruct message after 1 minute.
         """
         text = self.strip_command(data)
         data = self.slack_client.api_call("chat.postMessage",
