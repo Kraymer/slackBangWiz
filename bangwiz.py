@@ -23,7 +23,7 @@ class BangPlugin(Plugin):
     """
 
     def __init__(self, name=None, slack_client=None, plugin_config=None):
-        super().__init__(name, slack_client, plugin_config)
+        super(BangPlugin, self).__init__(name, slack_client, plugin_config)
         init_client()
 
     def process_message(self, data):
