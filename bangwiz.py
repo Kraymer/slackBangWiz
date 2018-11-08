@@ -78,7 +78,7 @@ class BangPlugin(Plugin):
         """
         commands = [x for x in dir(self) if x.startswith('_') and not x.startswith('__')]
         usage = '\n'.join([getattr(self, cmd).__doc__.strip() for cmd in sorted(commands)])
-        self.slack_client.api_call("chat.postMessage", icon_emoji=':bangbang:',
+        self.slack_client.api_call("chat.postMessage", icon_emoji=':exclamation:',
             token=BOT_TOKEN, as_user=False,
             username='Bang',
             text=usage,
@@ -112,7 +112,9 @@ class BangPlugin(Plugin):
         if meme_name.startswith(':'):
             meme_name = meme_name[1:-1]
         texts = re.findall(MEME_RE, data['text'])
-        texts = [x[1:-1].replace(' ', '_') for x in texts]
+        texts = [x[1:-1].replace(' ', '_').replace('_', '__').replace('-', '--').replace(
+            '?', '~q').replace('%', '~p').replace('?', '~q').replace('/', '~s').replace(
+            '#', '~h') for x in texts]
         url = 'https://memegen.link/%s/%s/%s.jpg' % (meme_name, texts[0], texts[1])
         self.slack_client.api_call("chat.postMessage",
             token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
