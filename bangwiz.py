@@ -112,7 +112,7 @@ class BangPlugin(Plugin):
         if meme_name.startswith(':'):
             meme_name = meme_name[1:-1]
         texts = re.findall(MEME_RE, data['text'])
-        texts = [x[1:-1].replace(' ', '_').replace('_', '__').replace('-', '--').replace(
+        texts = [x[1:-1].replace('_', '__').replace(' ', '_').replace('-', '--').replace(
             '?', '~q').replace('%', '~p').replace('?', '~q').replace('/', '~s').replace(
             '#', '~h') for x in texts]
         url = 'https://memegen.link/%s/%s/%s.jpg' % (meme_name, texts[0], texts[1])
