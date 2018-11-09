@@ -1,6 +1,6 @@
 ---
 layout: default
-title: &#33;d -- define
+title: Define &#33;
 parent: Commands
 nav_order: 1
 ---
