@@ -30,3 +30,8 @@ exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "pac
 aux_links:
   "View on GitHub":
     - "//github.com/Kraymer/slackBangWiz/"
+    
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jemoji
