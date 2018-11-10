@@ -5,8 +5,13 @@
 
   <div class="page-wrap">
     <div class="side-bar">
-      <a href="{{ site.url }}{{ site.baseurl }}" class="site-title fs-6 text-grey-dk-300 lh-tight">{{ site.title }}</a>
+      {% if page.url == '/' %}
+        <a href="{{ site.url }}{{ site.baseurl }}" class="site-title fs-6 text-grey-dk-300 lh-tight"><img src=/public/img/tagline.gif width=250></a>
+      {% else %}
+        <a href="{{ site.url }}{{ site.baseurl }}" class="site-title fs-6 text-grey-dk-300 lh-tight"><img src=/public/img/tagline.png width=250></a>
+      {% endif %}
       <span class="fs-3"><button class="js-main-nav-trigger navigation-list-toggle btn btn-outline" type="button" data-text-toggle="Hide">Menu</button></span>
+      <center><img src=/public/img/logo.png width=200></center>
       <div class="navigation main-nav js-main-nav">
         {% include nav.html %}
       </div>

@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Define (&#33;d) 
+title: Define memoji (&#33;d) 
 parent: Commands
-nav_order: 1
+nav_order: 4
 ---
 
 `!d <MEMOJI>`: show *MEMOJI* description 

@@ -5,8 +5,6 @@ nav_order: 1
 permalink: /
 ---
 
-
-# slackBangWiz
 python-rtmbot plugin adding `!bang` shortcuts<sup id="a1">[1](#f1)</sup> wizardry to slack
 
 > Ca fait vlam! Ca fait SLACK!  

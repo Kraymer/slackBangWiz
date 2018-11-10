@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Bomb (&#33;d) 
+title: Memegen (&#33;m) 
 parent: Commands
-nav_order: 2
+nav_order: 15
 ---
 
 `!b <text>`: destruct the message after 1 minute elapsed

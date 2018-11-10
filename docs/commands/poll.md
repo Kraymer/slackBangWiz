@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Bomb (&#33;d) 
+title: Poll (&#33;p) 
 parent: Commands
-nav_order: 2
+nav_order: 18
 ---
 
 `!b <text>`: destruct the message after 1 minute elapsed
