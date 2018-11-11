@@ -22,7 +22,7 @@ def delete_line(data):
 def channels_info(data, channel=None):
     """Get channel infos.
     """
-    SLACK_CLIENT.api_call("channels.info",
+    return SLACK_CLIENT.api_call("channels.info",
         token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
         channel=channel or data['channel'])
 
