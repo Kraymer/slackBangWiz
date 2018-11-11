@@ -13,12 +13,11 @@ def init_client(slack_client):
 
 
 def post(data, text, user=None):
-    token = BOT_TOKEN
+    args = {'token'=BOT-TOKEN, 'as_user'=True, 'text'=text, 'channel'=data['channel'],
+        'icon_emoji'=':bang:'}
     if user:
-        token = USERS_TOKENS.get(data['user'], BOT_TOKEN)
-    data = SLACK_CLIENT.api_call("chat.postMessage",
-        token=token,
-        as_user=True, text=':exclamation: %s' % text, channel=data['channel'])
+        args['token'] = USERS_TOKENS.get(data['user'], BOT_TOKEN)
+    data = SLACK_CLIENT.api_call("chat.postMessage", **args)
 
 def delete_line(data):
     """Delete command
