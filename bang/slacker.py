@@ -12,6 +12,11 @@ def init_client(slack_client):
     SLACK_CLIENT = slack_client
 
 
+def post(data, text, user=None):
+    data = SLACK_CLIENT.api_call("chat.postMessage",
+        token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
+        as_user=(user != None), text=':exclamation: %s' % text, channel=data['channel'])
+
 def delete_line(data):
     """Delete command
     """
@@ -22,9 +27,12 @@ def delete_line(data):
 def channels_info(data, channel=None):
     """Get channel infos.
     """
-    return SLACK_CLIENT.api_call("channels.info",
+    res = SLACK_CLIENT.api_call("channels.info",
         token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
         channel=channel or data['channel'])
+    if not res['ok']:
+        self.post(res['error'])
+    return res
 
 def react(data, emoji):
     """Add reaction.
