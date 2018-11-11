@@ -1,1 +1,4 @@
 bang/auth.py
+_site/
+.sass-cache/
+Gemfile.lock
