@@ -19,7 +19,7 @@ def delete_line(data):
         token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
         channel=data['channel'], ts=data['ts'], as_user=True)
 
-def channels_info(channel=None):
+def channels_info(data, channel=None):
     """Get channel infos.
     """
     SLACK_CLIENT.api_call("channels.info",

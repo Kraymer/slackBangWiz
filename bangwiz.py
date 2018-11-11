@@ -142,5 +142,5 @@ class BangPlugin(Plugin):
         """`!r [#CHANNEL]`\tpick a random user in the channel.
         """
         channel = self.strip_command(data)
-        res = slacker.channels_info(channel)
+        res = slacker.channels_info(data, channel)
         print(res)
