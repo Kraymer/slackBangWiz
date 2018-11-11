@@ -31,7 +31,7 @@ def channels_info(data, channel=None):
         token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
         channel=channel or data['channel'])
     if not res['ok']:
-        post(res['error'])
+        post(data, res['error'])
     return res
 
 def react(data, emoji):
