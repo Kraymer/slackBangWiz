@@ -9,7 +9,7 @@ from memedict import search
 
 from bang.auth import (USERS_TOKENS, BOT_TOKEN)
 from bang.bomb import BombCountdown
-from bang.slacker import (delete_line, react, init_client)
+from bang import slacker
 
 logging.basicConfig(filename='rtmbotf.log',
                     format='%(asctime)s %(message)s')
@@ -24,13 +24,13 @@ class BangPlugin(Plugin):
 
     def __init__(self, name=None, slack_client=None, plugin_config=None):
         super(BangPlugin, self).__init__(name, slack_client, plugin_config)
-        init_client(self.slack_client)
+        slacker.init_client(self.slack_client)
 
     def process_message(self, data):
         if 'text' in data:
             command = data['text'].split(' ')[0]
             if command[0] == '!' and len(command) == 2:
-                delete_line(self.slack_client, data)
+                slacker.delete_line(data)
                 if command == '!b':
                     self._bomb(data)
                 elif command == '!d':
@@ -45,6 +45,8 @@ class BangPlugin(Plugin):
                     self._memegen(data)
                 elif command == '!p':
                     self._poll(data)
+                elif command == '!r':
+                    self._random(data)
 
     def strip_command(self, data):
         return ' '.join(data['text'].split(' ')[1:])
@@ -112,7 +114,7 @@ class BangPlugin(Plugin):
         if meme_name.startswith(':'):
             meme_name = meme_name[1:-1]
         texts = re.findall(MEME_RE, data['text'])
-        texts = [x[1:-1].replace(' ', '_').replace('_', '__').replace('-', '--').replace(
+        texts = [x[1:-1].replace('_', '__').replace(' ', '_').replace('-', '--').replace(
             '?', '~q').replace('%', '~p').replace('?', '~q').replace('/', '~s').replace(
             '#', '~h') for x in texts]
         url = 'https://memegen.link/%s/%s/%s.jpg' % (meme_name, texts[0], texts[1])
@@ -133,5 +135,12 @@ class BangPlugin(Plugin):
                 as_user=True, text=':question: %s' % question, channel=data['channel'])
             data.update(data['message'])
             for emoji in emojis:
-                react(self.slack_client, data, emoji)
-            react(self.slack_client, data, 'void')
+                slacker.react(data, emoji)
+            slacker.react(data, 'void')
+
+    def _random(self, data):
+        """`!r [#CHANNEL]`\tpick a random user in the channel.
+        """
+        channel = self.strip_command(data)
+        res = slacker.channels_info(data, channel)
+        slacker.post(data, 'Random #%s user: %s' % (channel, random.choice(res['channel']['members'])))
