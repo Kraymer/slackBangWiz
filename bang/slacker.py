@@ -13,7 +13,7 @@ def init_client(slack_client):
 
 
 def post(data, text, user=None):
-    token = USERS_TOKENS[BOT_TOKEN]
+    token = BOT_TOKEN
     if user:
         token = USERS_TOKENS.get(data['user'], BOT_TOKEN)
     data = SLACK_CLIENT.api_call("chat.postMessage",
