@@ -45,6 +45,8 @@ class BangPlugin(Plugin):
                     self._memegen(data)
                 elif command == '!p':
                     self._poll(data)
+                elif command == '!r':
+                    self._random(data)
 
     def strip_command(self, data):
         return ' '.join(data['text'].split(' ')[1:])
