@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Bomb (&#33;d) 
+title: Bomb (!d) 
 parent: Commands
 nav_order: 2
 ---
