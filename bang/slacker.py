@@ -47,6 +47,6 @@ def react(data, emoji):
 def list_users():
     """Return a dict of all users mapping id to real name.
     """
-    users = SLACK_CLIENT.api_call('users.list', BOT_TOKEN)['members']
+    users = SLACK_CLIENT.api_call('users.list', token=BOT_TOKEN)['members']
     return {x['id']: x['real_name'] for x in users}
     
