@@ -68,7 +68,7 @@ class BangPlugin(Plugin):
     def _describe(self, data):
         """`!d <memoji>`\tprint description of given emoji.
         """
-        emoji = self.split_command(data)
+        emoji = self.strip_command(data)
         term = ' '.join(emoji.split('_'))
         description = search(term)
         slacker.post(data, text='.'.join(description.split('.')[1:]), 
@@ -91,7 +91,7 @@ class BangPlugin(Plugin):
             slacker.post(data, as_user=True, text=KAOMOJIS[text], private=self.command.islower())
 
     def _insult(self, data):
-        """`!i <@USER>`\tthrow a bunch of shakespearian poisonous words at your opponent face
+        """`!i <@user>`\tthrow a bunch of shakespearian poisonous words at your opponent face
         """
         from bang.rsrc.insult import INSULTS
         text = self.strip_command(data)
@@ -126,7 +126,7 @@ class BangPlugin(Plugin):
             slacker.react(data, 'void')
 
     def _random(self, data):
-        """`!r [#CHANNEL]`\tpick a random user in the channel.
+        """`!r [#channel]`\tpick a random user in the channel.
         """
         channel = self.strip_command(data).strip('#')
         channel_id = {v: k for k, v in self.channels.iteritems()}[channel]
