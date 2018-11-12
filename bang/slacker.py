@@ -12,11 +12,19 @@ def init_client(slack_client):
     SLACK_CLIENT = slack_client
 
 
-def post(data, text, as_user=None):
+def post(data, text, as_user=None, username=None, icon_emoji=None, private=False):
+    """Post text. By default as 'Bangwiz' user, on same channel than command is emitted.
+    """
     args = {'token': BOT_TOKEN, 'as_user': True, 'text': text, 'channel': data['channel'],
-        'icon_emoji': ':bang:'}
+        'icon_emoji': ':bang:', username='BangWiz'}
     if as_user:
         args['token'] = USERS_TOKENS.get(data['user'], BOT_TOKEN)
+    if username:
+        args['username'] = username
+    if icon_emoji:
+        args['icon_emoji'] = icon_emoji
+    if private:
+        args['channel'] = data['user']
     return SLACK_CLIENT.api_call("chat.postMessage", **args)
 
 def delete_line(data):
