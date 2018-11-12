@@ -25,7 +25,9 @@ class BangPlugin(Plugin):
     def __init__(self, name=None, slack_client=None, plugin_config=None):
         super(BangPlugin, self).__init__(name, slack_client, plugin_config)
         slacker.init_client(self.slack_client)
-        self.users = slacker.list_users()
+        self.users = slacker.users_list()
+        self.channels = slacker.channels_list()
+
 
     def process_message(self, data):
         if 'text' in data:
@@ -143,8 +145,9 @@ class BangPlugin(Plugin):
     def _random(self, data):
         """`!r [#CHANNEL]`\tpick a random user in the channel.
         """
-        channel = self.strip_command(data)
-        res = slacker.channels_info(data, channel)
+        channel = self.strip_command(data).strip('#')
+        channel_id = {v: k for k, v in self.channels.iteritems()}[channel]
+        res = slacker.channels_info(data, channel_id)
         slacker.post(data, 'Random #%s user: %s' % (channel,
             self.users[random.choice(res['channel']['members'])]))
 
