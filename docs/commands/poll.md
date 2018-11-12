@@ -16,4 +16,4 @@ possible when  posting an  emopoll manually).
     
 ## Preview 
 
-[](https://raw.githubusercontent.com/Kraymer/bulkdata/master/poll.gif)
+![](https://raw.githubusercontent.com/Kraymer/bulkdata/master/poll.gif)
