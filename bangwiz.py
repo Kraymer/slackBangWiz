@@ -32,7 +32,7 @@ class BangPlugin(Plugin):
     def process_message(self, data):
         if 'text' in data:
             self.command = data['text'].split(' ')[0]
-            command = command.lower()
+            command = self.command.lower()
             if command[0] == '!' and len(command) == 2:
                 slacker.delete_line(data)
                 if command == '!b':
