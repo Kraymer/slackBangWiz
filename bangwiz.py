@@ -146,5 +146,5 @@ class BangPlugin(Plugin):
         channel = self.strip_command(data)
         res = slacker.channels_info(data, channel)
         slacker.post(data, 'Random #%s user: %s' % (channel,
-            self.users[random.choice(res['channel']['members']])))
+            self.users[random.choice(res['channel']['members'])]))
 
