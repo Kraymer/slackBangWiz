@@ -25,6 +25,7 @@ class BangPlugin(Plugin):
     def __init__(self, name=None, slack_client=None, plugin_config=None):
         super(BangPlugin, self).__init__(name, slack_client, plugin_config)
         slacker.init_client(self.slack_client)
+        self.users = slacker.list_users()
 
     def process_message(self, data):
         if 'text' in data:
@@ -57,9 +58,10 @@ class BangPlugin(Plugin):
         """`!b <text>`\tdestruct message after 1 minute.
         """
         text = self.strip_command(data)
-        data = self.slack_client.api_call("chat.postMessage",
-            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-            as_user=True, text=':bomb: %s' % text, channel=data['channel'])
+        data = slacker.post(data, text=':bomb: %s' % text, as_user=True)
+        # data = self.slack_client.api_call("chat.postMessage",
+        #     token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
+        #     as_user=True, text=':bomb: %s' % text, channel=data['channel'])
         data.update(data['message'])
         BombCountdown(self.slack_client, data).start()
 
@@ -143,4 +145,6 @@ class BangPlugin(Plugin):
         """
         channel = self.strip_command(data)
         res = slacker.channels_info(data, channel)
-        slacker.post(data, 'Random #%s user: %s' % (channel, random.choice(res['channel']['members'])))
+        slacker.post(data, 'Random #%s user: %s' % (channel,
+            self.users[random.choice(res['channel']['members'])]))
+

@@ -12,12 +12,12 @@ def init_client(slack_client):
     SLACK_CLIENT = slack_client
 
 
-def post(data, text, user=None):
+def post(data, text, as_user=None):
     args = {'token': BOT_TOKEN, 'as_user': True, 'text': text, 'channel': data['channel'],
         'icon_emoji': ':bang:'}
-    if user:
+    if as_user:
         args['token'] = USERS_TOKENS.get(data['user'], BOT_TOKEN)
-    data = SLACK_CLIENT.api_call("chat.postMessage", **args)
+    return SLACK_CLIENT.api_call("chat.postMessage", **args)
 
 def delete_line(data):
     """Delete command
@@ -42,3 +42,11 @@ def react(data, emoji):
     return SLACK_CLIENT.api_call("reactions.add",
         token=BOT_TOKEN, as_user=False, name=emoji, icon_emoji=':slack-cli:',
         channel=data['channel'], timestamp=data['ts'])
+
+
+def list_users():
+    """Return a dict of all users mapping id to real name.
+    """
+    users = SLACK_CLIENT.api_call('users.list', token=BOT_TOKEN)['members']
+    return {x['id']: x.get('real_name', x['name']) for x in users}
+    
