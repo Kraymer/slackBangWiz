@@ -79,7 +79,7 @@ class BangPlugin(Plugin):
         """
         commands = [x for x in dir(self) if x.startswith('_') and not x.startswith('__')]
         usage = '\n'.join([getattr(self, cmd).__doc__.strip() for cmd in sorted(commands)])
-        slacker.post(text=usage, private=self.command.islower())
+        slacker.post(data, text=usage, private=self.command.islower())
 
     def _kaomoji(self, data):
         """`!k <emoji>`\treplace emoji with kaomoji.
@@ -87,14 +87,14 @@ class BangPlugin(Plugin):
         from bang.rsrc.kaomoji import KAOMOJIS
         text = self.strip_command(data)[1:-1]
         if text in KAOMOJIS:
-            slacker.post(as_user=True, text=KAOMOJIS[text], private=self.command.islower())
+            slacker.post(data, as_user=True, text=KAOMOJIS[text], private=self.command.islower())
 
     def _insult(self, data):
         """`!i <@USER>`\tthrow a bunch of shakespearian poisonous words at your opponent face
         """
         from bang.rsrc.insult import INSULTS
         text = self.strip_command(data)
-        slacker.post(as_user=True, text=':shakespeare: %s _%s_' % (
+        slacker.post(data, as_user=True, text=':shakespeare: %s _%s_' % (
                 text, random.choice(INSULTS)))
 
     def _memegen(self, data):
@@ -108,7 +108,7 @@ class BangPlugin(Plugin):
             '?', '~q').replace('%', '~p').replace('?', '~q').replace('/', '~s').replace(
             '#', '~h') for x in texts]
         url = 'https://memegen.link/%s/%s/%s.jpg' % (meme_name, texts[0], texts[1])
-        slacker.post(as_user=True, text=':troll: %s' % url)
+        slacker.post(data, as_user=True, text=':troll: %s' % url)
 
     def _poll(self, data):
         """`!p <question> <emojis>`\tpost an emopoll as bot user hence enabling original poster to vote.
@@ -118,7 +118,7 @@ class BangPlugin(Plugin):
         question = match.group(1)
         emojis = [x for x in match.group(2).split(':') if x]
         if question and len(emojis) > 1:
-            data = slacker.post(as_user=True, text=':question: %s' % question)
+            data = slacker.post(data, as_user=True, text=':question: %s' % question)
             data.update(data['message'])
             for emoji in emojis:
                 slacker.react(data, emoji)
