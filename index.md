@@ -1,11 +1,12 @@
 ---
 layout: default
-title: Home
+title: Getting started
 nav_order: 1
 permalink: /
 ---
 
-python-rtmbot plugin adding `!bang` shortcuts<sup id="a1">[1](#f1)</sup> wizardry to slack
+# slack plugin for [python-rtmbot](https://github.com/slackapi/python-rtmbot) adding !bang wizardry (_à la_ [DuckDuckGo](ttps://duckduckgo.com/bang))
+{: .fs-6 .fw-300 }
 
 > Ca fait vlam! Ca fait SLACK!  
 > Des clip! Crap! Des BANG! Des vlop! Et des zip!   
@@ -13,43 +14,18 @@ python-rtmbot plugin adding `!bang` shortcuts<sup id="a1">[1](#f1)</sup> wizardr
 
 -- *Slightly edited* lyrics of [Comic Strip - Serge Gainsbourg ft Brigitte Bardot](https://www.youtube.com/watch?v=22Uf4-khGAk) 
 
-# Glossary
+<br>
 
-_bang:_ shortcut starting by `!` to execute arbitrary action to a slack channel/message
+[Get started now](#getting-started){: .btn .btn-purple .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/Kraymer/slackBangWiz){: .btn .fs-5 }
 
-_memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure:`, etc 
 
-# Usage
+---
 
-- **B**omb   
-  `!b <text>`: destruct the message after 1 minute elapsed
+## Getting started
 
-  ![](https://raw.githubusercontent.com/Kraymer/bulkdata/master/emobomb.gif)
+### Install 
 
-- **D**efine  
-  `!kym <MEMOJI>`: show *MEMOJI* description 
-
-  <img src=https://i.imgur.com/Qs0BY1L.png width=600>
-  
-- **K**aomoji  
-  `!k <EMOJI>`: replace *EMOJI* by its kawai version
-
-  <img src=https://thumbs.gfycat.com/CavernousLikableFrigatebird-size_restricted.gif width=600>
-
-- **I**nsult
-  `!i <@USER>: throw a bunch of shakespearian poisonous words at your opponent face
-  
-- **M**eme    
-  `!m <MEMENAME> <TOP TEXT> <BOTTOM TEXT>`: generate meme image
-
-  <img src=https://raw.githubusercontent.com/Kraymer/bulkdata/master/ezgif-5-3974dd57a36e.gif width=600>
-
-- **P**oll  
-  `!p <QUESTION> <EMOJIS>`: post an emopoll 
-
-# Install
-
-1. Install python-rtmbot using instructions at https://github.com/slackapi/python-rtmbot#installation
+1. Install python-rtmbot using instructions at [https://github.com/slackapi/python-rtmbot#installation](https://github.com/slackapi/python-rtmbot#installation)
 2. `cd python-rtmbot/plugins ; git clone https://github.com/Kraymer/slackBangWiz.git`
 3. declare the plugin : 
 
@@ -60,8 +36,22 @@ _memoji:_ custom emoji refering to a meme, eg `:feels_good_man:`, `:fry_not_sure
     - plugins.bangwiz.BangPlugin
    ~~~~
  
- 4. enter slack users tokens in `bang/auth.py`
- 
- 
- ---
-<i id="f1">1</i> *à la* DuckDuckGo, see https://duckduckgo.com/bang [⤸](#a1) 
+4. enter slack users tokens in `bang/auth.py`.  
+ These legacy tokens are available at 
+ [https://api.slack.com/custom-integrations/legacy-tokens](https://api.slack.com/custom-integrations/legacy-tokens)
+
+### Bot app permissions
+
+Following permissions are needed :
+
+- Confirm user’s identity
+- Access user’s public channels
+- Access the workspace’s emoji
+- Send messages as user
+- Send messages as slack-cli
+
+And additional permissions for these bang commands :
+
+- _`!r`andom user_ : Access information about user’s public channels 
+
+
