@@ -44,9 +44,15 @@ def react(data, emoji):
         channel=data['channel'], timestamp=data['ts'])
 
 
-def list_users():
+def users_list():
     """Return a dict of all users mapping id to real name.
     """
     users = SLACK_CLIENT.api_call('users.list', token=BOT_TOKEN)['members']
     return {x['id']: x.get('real_name', x['name']) for x in users}
     
+
+def channels_list():
+    """Return a dict of all channels mapping id to name.
+    """
+    users = SLACK_CLIENT.api_call('channels.list', token=BOT_TOKEN)['channels']
+    return {x['id']: x['name'] for x in users}
