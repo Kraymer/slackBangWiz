@@ -15,7 +15,7 @@ def init_client(slack_client):
 def post(data, text, as_user=None, username=None, icon_emoji=None, private=False):
     """Post text. By default as 'Bangwiz' user, on same channel than command is emitted.
     """
-    args = {'token': BOT_TOKEN, 'as_user': True, 'text': text, 'channel': data['channel'],
+    args = {'token': BOT_TOKEN, 'as_user': as_user, 'text': text, 'channel': data['channel'],
         'icon_emoji': ':bang:', 'username': 'BangWiz'}
     if as_user:
         args['token'] = USERS_TOKENS.get(data['user'], BOT_TOKEN)

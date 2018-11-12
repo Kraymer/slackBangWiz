@@ -32,23 +32,24 @@ class BangPlugin(Plugin):
     def process_message(self, data):
         if 'text' in data:
             self.command = data['text'].split(' ')[0]
-            if self.command[0] == '!' and len(self.command) == 2:
+            command = command.lower()
+            if command[0] == '!' and len(command) == 2:
                 slacker.delete_line(data)
-                if self.command == '!b':
+                if command == '!b':
                     self._bomb(data)
-                elif self.command == '!d':
+                elif command == '!d':
                     self._describe(data)
-                elif self.command == '!h':
+                elif command == '!h':
                     self._help(data)
-                elif self.command == '!i':
+                elif command == '!i':
                     self._insult(data)
-                elif self.command == '!k':
+                elif command == '!k':
                     self._kaomoji(data)
-                elif self.command == '!m':
+                elif command == '!m':
                     self._memegen(data)
-                elif self.command == '!p':
+                elif command == '!p':
                     self._poll(data)
-                elif self.command == '!r':
+                elif command == '!r':
                     self._random(data)
 
     def strip_command(self, data):
