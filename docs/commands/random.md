@@ -1,11 +1,11 @@
 ---
 layout: default
-title: _`!r`andom user_ 
+title: Random user (!r)
 parent: Commands
 nav_order: 20
 ---
 
-`!b <text>`: destruct the message after 1 minute elapsed
+`!r <@CHANNEL>`: return a random member of the channel
 
 ## Use
     

@@ -9,6 +9,6 @@ permalink: /commands
 
 # Commands
 
-`Slackbangwiz consists of commands 
+`Slackbangwiz` consists of commands 
 
 {: .fs-6 .fw-300 }

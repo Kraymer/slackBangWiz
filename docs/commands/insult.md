@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Insult (&#33;i) 
+title: Insult (!i) 
 parent: Commands
 nav_order: 9
 ---

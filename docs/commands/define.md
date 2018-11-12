@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Define memoji (&#33;d) 
+title: Define memoji (!d) 
 parent: Commands
 nav_order: 4
 ---

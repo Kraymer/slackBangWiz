@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Poll (&#33;p) 
+title: Poll (!p) 
 parent: Commands
 nav_order: 18
 ---

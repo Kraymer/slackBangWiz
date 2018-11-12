@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Memegen (&#33;m) 
+title: Memegen (!m) 
 parent: Commands
 nav_order: 15
 ---
