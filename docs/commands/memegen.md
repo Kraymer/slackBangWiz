@@ -12,10 +12,7 @@ name and top/bottom captions
     
 Coz' sometimes emojis aren't enough.
 
-Tip
-{: .label } 
-
-entering _meme_name_ can be greatly facilitated by the use of emocompletion (see 
+Tip {: .label } entering _meme_name_ can be greatly facilitated by the use of emocompletion (see 
 [Donate & custom emojis pack](http://example.com)) 
 
 ## Preview 
