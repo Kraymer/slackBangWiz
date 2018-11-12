@@ -31,24 +31,24 @@ class BangPlugin(Plugin):
 
     def process_message(self, data):
         if 'text' in data:
-            command = data['text'].split(' ')[0]
-            if command[0] == '!' and len(command) == 2:
+            self.command = data['text'].split(' ')[0]
+            if self.command[0] == '!' and len(self.command) == 2:
                 slacker.delete_line(data)
-                if command == '!b':
+                if self.command == '!b':
                     self._bomb(data)
-                elif command == '!d':
+                elif self.command == '!d':
                     self._describe(data)
-                elif command == '!h':
+                elif self.command == '!h':
                     self._help(data)
-                elif command == '!i':
+                elif self.command == '!i':
                     self._insult(data)
-                elif command == '!k':
+                elif self.command == '!k':
                     self._kaomoji(data)
-                elif command == '!m':
+                elif self.command == '!m':
                     self._memegen(data)
-                elif command == '!p':
+                elif self.command == '!p':
                     self._poll(data)
-                elif command == '!r':
+                elif self.command == '!r':
                     self._random(data)
 
     def strip_command(self, data):
@@ -61,9 +61,6 @@ class BangPlugin(Plugin):
         """
         text = self.strip_command(data)
         data = slacker.post(data, text=':bomb: %s' % text, as_user=True)
-        # data = self.slack_client.api_call("chat.postMessage",
-        #     token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-        #     as_user=True, text=':bomb: %s' % text, channel=data['channel'])
         data.update(data['message'])
         BombCountdown(self.slack_client, data).start()
 
@@ -73,22 +70,16 @@ class BangPlugin(Plugin):
         emoji = self.split_command(data)
         term = ' '.join(emoji.split('_'))
         description = search(term)
-        self.slack_client.api_call("chat.postMessage", icon_emoji=':%s:' % emoji,
-            token=BOT_TOKEN, as_user=False,
-            username=description.split('.')[0],
-            text='.'.join(description.split('.')[1:]),
-            channel=data['user'])
+        slacker.post(data, text='.'.join(description.split('.')[1:]), 
+            username=description.split('.')[0], icon_emoji=':%s:' % emoji, private=True)
+
 
     def _help(self, data):
         """`!h`\tshow this help message.
         """
         commands = [x for x in dir(self) if x.startswith('_') and not x.startswith('__')]
         usage = '\n'.join([getattr(self, cmd).__doc__.strip() for cmd in sorted(commands)])
-        self.slack_client.api_call("chat.postMessage", icon_emoji=':exclamation:',
-            token=BOT_TOKEN, as_user=False,
-            username='Bang',
-            text=usage,
-            channel=data['user'])
+        slacker.post(text=usage, private=self.command.islower())
 
     def _kaomoji(self, data):
         """`!k <emoji>`\treplace emoji with kaomoji.
@@ -96,20 +87,15 @@ class BangPlugin(Plugin):
         from bang.rsrc.kaomoji import KAOMOJIS
         text = self.strip_command(data)[1:-1]
         if text in KAOMOJIS:
-            self.slack_client.api_call("chat.postMessage",
-                token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-                as_user=True, text=KAOMOJIS[text], channel=data['channel'])
+            slacker.post(as_user=True, text=KAOMOJIS[text], private=self.command.islower())
 
     def _insult(self, data):
         """`!i <@USER>`\tthrow a bunch of shakespearian poisonous words at your opponent face
         """
         from bang.rsrc.insult import INSULTS
         text = self.strip_command(data)
-        self.slack_client.api_call("chat.postMessage",
-            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-            as_user=True, text=':shakespeare: %s _%s_' % (
-                text, random.choice(INSULTS)),
-            channel=data['channel'])
+        slacker.post(as_user=True, text=':shakespeare: %s _%s_' % (
+                text, random.choice(INSULTS)))
 
     def _memegen(self, data):
         """`!m <meme_name or memoji> "<top text>" "<bottom text>"`\tgenerate a meme image
@@ -122,9 +108,7 @@ class BangPlugin(Plugin):
             '?', '~q').replace('%', '~p').replace('?', '~q').replace('/', '~s').replace(
             '#', '~h') for x in texts]
         url = 'https://memegen.link/%s/%s/%s.jpg' % (meme_name, texts[0], texts[1])
-        self.slack_client.api_call("chat.postMessage",
-            token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-            as_user=True, text=':troll: %s' % url, channel=data['channel'])
+        slacker.post(as_user=True, text=':troll: %s' % url)
 
     def _poll(self, data):
         """`!p <question> <emojis>`\tpost an emopoll as bot user hence enabling original poster to vote.
@@ -134,9 +118,7 @@ class BangPlugin(Plugin):
         question = match.group(1)
         emojis = [x for x in match.group(2).split(':') if x]
         if question and len(emojis) > 1:
-            data = self.slack_client.api_call("chat.postMessage",
-                token=USERS_TOKENS.get(data['user'], BOT_TOKEN),
-                as_user=True, text=':question: %s' % question, channel=data['channel'])
+            data = slacker.post(as_user=True, text=':question: %s' % question)
             data.update(data['message'])
             for emoji in emojis:
                 slacker.react(data, emoji)
