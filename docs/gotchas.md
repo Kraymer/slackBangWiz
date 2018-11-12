@@ -22,4 +22,4 @@ _`!k`aomoji_ command](https://github.com/Kraymer/slackBangWiz/blob/master/bang/r
 # Private vs public
 
 Some commands generate answers, by default they post it as private message to the command author.  
-Use uppercase command (eg `!R`) to post answer publically on the same channel than the original command.  
+Use uppercase command (eg `!R`) to post answer publicly on the same channel than the original command.  

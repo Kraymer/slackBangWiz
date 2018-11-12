@@ -9,6 +9,6 @@ permalink: /commands
 
 # Commands
 
-`Slackbangwiz` consists of commands 
+`Slackbangwiz` bot is triggered by bang commands : `!` followed by a letter. 
 
 {: .fs-6 .fw-300 }

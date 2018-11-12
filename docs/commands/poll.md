@@ -5,14 +5,13 @@ parent: Commands
 nav_order: 18
 ---
 
-`!b <text>`: destruct the message after 1 minute elapsed
+`!p <question> <emojis>` : post an emopoll
 
 ## Use
     
-Sometimes you have to transmit sensitive information, but not so sensitive you can't post it 
-temporarily on slack. The bomb command and its :bomb: marker warns people that the message will 
-auto-destruct in the minute.    
+Ask a question with predefined possible answers.  
+Because the emoreacts are posted by the bot, the original poster can vote too (which is not 
+possible when  posting an  emopoll manually).
 
+    
 ## Preview 
-
-![](https://raw.githubusercontent.com/Kraymer/bulkdata/master/emobomb.gif)

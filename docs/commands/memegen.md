@@ -5,14 +5,19 @@ parent: Commands
 nav_order: 15
 ---
 
-`!b <text>`: destruct the message after 1 minute elapsed
+`!m <meme_name or memoji> "<top text>" "<bottom text>"`: generate meme image from template 
+name and top/bottom captions
 
 ## Use
     
-Sometimes you have to transmit sensitive information, but not so sensitive you can't post it 
-temporarily on slack. The bomb command and its :bomb: marker warns people that the message will 
-auto-destruct in the minute.    
+Coz' sometimes emojis aren't enough.
+
+Tip
+{: .label } 
+
+entering _meme_name_ can be greatly facilitated by the use of emocompletion (see 
+[Donate & custom emojis pack](http://example.com)) 
 
 ## Preview 
 
-![](https://raw.githubusercontent.com/Kraymer/bulkdata/master/emobomb.gif)
+![](https://raw.githubusercontent.com/Kraymer/bulkdata/master/ezgif-5-3974dd57a36e.gif)
