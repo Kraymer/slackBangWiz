@@ -17,14 +17,17 @@ def post(data, text, as_user=None, username=None, icon_emoji=None, private=False
     """
     args = {'token': BOT_TOKEN, 'as_user': as_user, 'text': text, 'channel': data['channel'],
         'icon_emoji': ':bang:', 'username': 'BangWiz'}
-    if as_user:
-        args['token'] = USERS_TOKENS.get(data['user'], BOT_TOKEN)
-    if username:
-        args['username'] = username
     if icon_emoji:
         args['icon_emoji'] = icon_emoji
     if private:
         args['channel'] = data['user']
+        args['as_user'] = None
+    else:
+        if as_user:
+            args['token'] = USERS_TOKENS.get(data['user'], BOT_TOKEN)
+        if username:
+            args['username'] = username
+
     return SLACK_CLIENT.api_call("chat.postMessage", **args)
 
 def delete_line(data):
